@@ -4,11 +4,8 @@ package com.epam.rd.autotasks.springemployeecatalog.service;
 import com.epam.rd.autotasks.springemployeecatalog.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
@@ -43,14 +40,13 @@ public class EmployeeController {
 
     @GetMapping("/by_department")
     public Page<Employee> getEmployeesByDepartment(
-            @RequestParam(required = false) Long departmentId,
-            @RequestParam(required = false) String departmentName,
+            @PathVariable String department,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "lastName") String sort
     ) {
 
-        return employeeService.getEmployeesByDepartment(departmentId, departmentName, page ,size , sort);
+        return employeeService.getEmployeesByDepartment(department, page ,size , sort);
     }
 
 }
